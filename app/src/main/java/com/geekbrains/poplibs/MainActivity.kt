@@ -2,6 +2,7 @@ package com.geekbrains.poplibs
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
 import com.geekbrains.poplibs.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), MainView {
@@ -19,13 +20,13 @@ class MainActivity : AppCompatActivity(), MainView {
 
         with(binding) {
             btnNumber1.setOnClickListener {
-                presenter.onCounterClick(R.id.btnNumber1)
+                presenter.onBtnOneClicked()
             }
             btnNumber2.setOnClickListener {
-                presenter.onCounterClick(R.id.btnNumber2)
+                presenter.onBtnTwoClicked()
             }
             btnNumber3.setOnClickListener {
-                presenter.onCounterClick(R.id.btnNumber3)
+                presenter.onBtnThreeClicked()
             }
         }
     }
@@ -34,13 +35,21 @@ class MainActivity : AppCompatActivity(), MainView {
         presenter = CountersPresenter(this)
     }
 
-    override fun setText(counter: String, position: Int) {
-        with(binding) {
-            when (position) {
-                0 -> tvText1.text = counter
-                1 -> tvText2.text = counter
-                2 -> tvText3.text = counter
-            }
-        }
+    override fun btnOneSetText(counter: String) {
+        binding.tvText1.text = counter
     }
+
+    override fun btnTwoSetText(counter: String) {
+        binding.tvText2.text = counter
+    }
+
+    override fun btnThreeSetText(counter: String) {
+        binding.tvText3.text = counter
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.onViewResumed()
+    }
+
 }

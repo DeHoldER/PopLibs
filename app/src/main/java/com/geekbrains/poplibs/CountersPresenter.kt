@@ -1,24 +1,32 @@
 package com.geekbrains.poplibs
 
+import android.os.Bundle
+import android.os.PersistableBundle
+
 class CountersPresenter(
     private val view: MainView
 ) {
     private val model = CountersModel()
 
-    fun onCounterClick(id: Int) {
-        when (id) {
-            R.id.btnNumber1 -> {
-                val newValue = model.next(0)
-                view.setText(newValue.toString(), 0)
-            }
-            R.id.btnNumber2 -> {
-                val newValue = model.next(1)
-                view.setText(newValue.toString(), 1)
-            }
-            R.id.btnNumber3 -> {
-                val newValue = model.next(2)
-                view.setText(newValue.toString(), 2)
-            }
-        }
+    // Т.к. в реальной жизни, как правило, каждая кнопка имеет своё уникальное назначение,
+    // нахожу целесообразным написать для каждой кнопки отдельные методы
+
+    fun onBtnOneClicked() {
+        view.btnOneSetText(model.next(0).toString())
     }
+
+    fun onBtnTwoClicked() {
+        view.btnTwoSetText(model.next(1).toString())
+    }
+
+    fun onBtnThreeClicked() {
+        view.btnThreeSetText(model.next(2).toString())
+    }
+
+    fun onViewResumed() {
+        view.btnOneSetText(model.getCurrent(0).toString())
+        view.btnTwoSetText(model.getCurrent(1).toString())
+        view.btnThreeSetText(model.getCurrent(2).toString())
+    }
+
 }
