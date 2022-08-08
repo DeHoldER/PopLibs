@@ -1,6 +1,6 @@
 package com.geekbrains.poplibs.main
 
-import com.geekbrains.poplibs.core.nav.UsersScreen
+import com.geekbrains.poplibs.core.nav.AppScreens
 import com.github.terrakok.cicerone.Router
 import moxy.MvpPresenter
 
@@ -10,7 +10,7 @@ class MainPresenter(
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        router.replaceScreen(UsersScreen)
+        router.replaceScreen(AppScreens)
     }
 
     fun onBackPressed() {

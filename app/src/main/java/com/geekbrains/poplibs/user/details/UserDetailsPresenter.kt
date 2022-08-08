@@ -1,17 +1,15 @@
-package com.geekbrains.poplibs.user
+package com.geekbrains.poplibs.user.details
 
-import com.geekbrains.poplibs.repository.GithubRepository
 import com.github.terrakok.cicerone.Router
 import moxy.MvpPresenter
 
-class UserPresenter(
-    private val repository: GithubRepository,
+class UserDetailsPresenter(
     private val router: Router
-) : MvpPresenter<UserView>() {
+) : MvpPresenter<UserDetailsView>() {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        viewState.initList(repository.getUsers())
+        viewState.initUser()
     }
 
     fun onBackPressed(): Boolean {

@@ -1,32 +1,36 @@
-package com.geekbrains.poplibs.user
+package com.geekbrains.poplibs.user.list
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.geekbrains.poplibs.GeekBrainsApp
+import com.geekbrains.poplibs.app.GeekBrainsApp
 import com.geekbrains.poplibs.core.OnBackPressedListener
 import com.geekbrains.poplibs.databinding.FragmentUserListBinding
-import com.geekbrains.poplibs.main.UserAdapter
+import com.geekbrains.poplibs.main.UserListAdapter
 import com.geekbrains.poplibs.model.GithubUser
 import com.geekbrains.poplibs.repository.impl.GithubRepositoryImpl
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
-class UserFragment : MvpAppCompatFragment(), UserView, OnBackPressedListener {
+class UserListFragment : MvpAppCompatFragment(), UserListView, OnBackPressedListener {
 
     companion object {
-        fun getInstance(): UserFragment {
-            return UserFragment()
+        fun getInstance(): UserListFragment {
+            return UserListFragment()
         }
     }
 
     private lateinit var viewBinding: FragmentUserListBinding
 
-    private val adapter = UserAdapter()
-    private val presenter: UserPresenter by moxyPresenter {
-        UserPresenter(GithubRepositoryImpl(), GeekBrainsApp.instance.router)
+    private val adapter = UserListAdapter(object : OnItemViewClickListener {
+        override fun onItemViewClick(user: GithubUser) {
+            onUserClicked(user)
+        }
+    })
+    private val presenter: UserListPresenter by moxyPresenter {
+        UserListPresenter(GithubRepositoryImpl(), GeekBrainsApp.instance.router)
     }
 
     override fun onCreateView(
@@ -49,6 +53,14 @@ class UserFragment : MvpAppCompatFragment(), UserView, OnBackPressedListener {
 
     override fun initList(list: List<GithubUser>) {
         adapter.users = list
+    }
+
+    interface OnItemViewClickListener {
+        fun onItemViewClick(user: GithubUser)
+    }
+
+    override fun onUserClicked(user: GithubUser) {
+        presenter.onUserClicked(user)
     }
 
     override fun onBackPressed() = presenter.onBackPressed()

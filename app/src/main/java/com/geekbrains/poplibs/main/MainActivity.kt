@@ -1,7 +1,7 @@
 package com.geekbrains.poplibs.main
 
 import android.os.Bundle
-import com.geekbrains.poplibs.GeekBrainsApp
+import com.geekbrains.poplibs.app.GeekBrainsApp
 import com.geekbrains.poplibs.R
 import com.geekbrains.poplibs.core.OnBackPressedListener
 import com.geekbrains.poplibs.databinding.ActivityMainBinding

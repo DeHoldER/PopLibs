@@ -5,12 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.geekbrains.poplibs.R
 import com.geekbrains.poplibs.model.GithubUser
+import com.geekbrains.poplibs.user.list.UserListFragment
 
-class UserAdapter() :
-    RecyclerView.Adapter<GithubUserViewHolder>() {
+class UserListAdapter(
+    private var onItemViewClickListener: UserListFragment.OnItemViewClickListener?
+) :
+    RecyclerView.Adapter<UserListAdapter.GithubUserViewHolder>() {
 
     var users: List<GithubUser> = emptyList()
         @SuppressLint("NotifyDataSetChanged")
@@ -29,13 +33,16 @@ class UserAdapter() :
     }
 
     override fun getItemCount() = users.size
-}
 
-class GithubUserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class GithubUserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    private val tvLogin by lazy { itemView.findViewById<TextView>(R.id.tvUserLogin) }
+        private val tvLogin by lazy { itemView.findViewById<TextView>(R.id.tvUserLogin) }
+        private val userCard by lazy { itemView.findViewById<CardView>(R.id.itemUserCardView) }
 
-    fun bind(item: GithubUser) = with(item) {
-        tvLogin.text = login
+        fun bind(item: GithubUser) = with(item) {
+            tvLogin.text = login
+            userCard.setOnClickListener { onItemViewClickListener?.onItemViewClick(item) }
+        }
     }
 }
+

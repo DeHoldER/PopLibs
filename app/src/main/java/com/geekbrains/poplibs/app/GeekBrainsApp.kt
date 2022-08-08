@@ -1,4 +1,4 @@
-package com.geekbrains.poplibs
+package com.geekbrains.poplibs.app
 
 import android.app.Application
 import com.github.terrakok.cicerone.Cicerone
