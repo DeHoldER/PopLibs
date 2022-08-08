@@ -1,6 +1,6 @@
-package com.geekbrains.poplibs
+package com.geekbrains.poplibs.repository.impl
 
-class CountersModel {
+class CountersRepository {
 
     private val counters = mutableListOf(0, 0, 0)
 
