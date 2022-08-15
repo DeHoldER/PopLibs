@@ -2,6 +2,8 @@ package com.geekbrains.poplibs.repository.impl
 
 import com.geekbrains.poplibs.model.GithubUser
 import com.geekbrains.poplibs.repository.GithubRepository
+import io.reactivex.rxjava3.core.Observable
+import java.util.concurrent.TimeUnit
 
 class GithubRepositoryImpl : GithubRepository {
 
@@ -13,7 +15,7 @@ class GithubRepositoryImpl : GithubRepository {
         GithubUser("Larisa")
     )
 
-    override fun getUsers(): List<GithubUser> {
-        return repositories
+    override fun getUsers(): Observable<List<GithubUser>> {
+        return Observable.just(repositories)
     }
 }
