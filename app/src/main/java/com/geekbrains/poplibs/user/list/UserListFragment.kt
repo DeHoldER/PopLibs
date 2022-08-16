@@ -12,7 +12,8 @@ import com.geekbrains.poplibs.repository.impl.GithubRepositoryImpl
 import com.geekbrains.poplibs.utils.ViewBindingFragment
 import moxy.ktx.moxyPresenter
 
-class UserListFragment : ViewBindingFragment<FragmentUserListBinding>(FragmentUserListBinding::inflate),
+class UserListFragment :
+    ViewBindingFragment<FragmentUserListBinding>(FragmentUserListBinding::inflate),
     UserListView, OnBackPressedListener {
 
     companion object {

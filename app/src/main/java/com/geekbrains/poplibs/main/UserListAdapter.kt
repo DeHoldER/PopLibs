@@ -1,11 +1,12 @@
 package com.geekbrains.poplibs.main
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.geekbrains.poplibs.R
 import com.geekbrains.poplibs.model.GithubUser
@@ -14,18 +15,14 @@ import com.geekbrains.poplibs.user.list.UserListFragment
 class UserListAdapter(
     private var onItemViewClickListener: UserListFragment.OnItemViewClickListener?
 ) :
-    RecyclerView.Adapter<UserListAdapter.GithubUserViewHolder>() {
+    ListAdapter<GithubUser, UserListAdapter.GithubUserViewHolder>(GithubUserItemCallback) {
 
-    var users: List<GithubUser> = emptyList()
-        @SuppressLint("NotifyDataSetChanged")
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+    var users: List<GithubUser> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GithubUserViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_user, parent, false)
-        return GithubUserViewHolder(view)
+        return GithubUserViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.item_user, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: GithubUserViewHolder, position: Int) {
@@ -43,6 +40,16 @@ class UserListAdapter(
             tvLogin.text = login
             userCard.setOnClickListener { onItemViewClickListener?.onItemViewClick(item) }
         }
+    }
+}
+
+object GithubUserItemCallback : DiffUtil.ItemCallback<GithubUser>() {
+    override fun areContentsTheSame(oldItem: GithubUser, newItem: GithubUser): Boolean {
+        return oldItem == newItem
+    }
+
+    override fun areItemsTheSame(oldItem: GithubUser, newItem: GithubUser): Boolean {
+        return oldItem == newItem
     }
 }
 

@@ -6,10 +6,6 @@ import com.geekbrains.poplibs.model.GithubUser
 import com.geekbrains.poplibs.repository.GithubRepository
 import com.geekbrains.poplibs.user.details.UserDetailsFragment
 import com.github.terrakok.cicerone.Router
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Scheduler
-import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
 
 class UserListPresenter(
